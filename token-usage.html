@@ -143,7 +143,7 @@
 
         <div class="chart-card">
             <h2>Monthly Spend Overview</h2>
-            <p class="chart-desc">Base subscription ($20/mo) + credit top-ups by month</p>
+            <p class="chart-desc">Base subscription ($20/mo) + credit top-ups + free credits by month</p>
             <div class="chart-wrap">
                 <canvas id="spendChart"></canvas>
             </div>
@@ -229,6 +229,13 @@
                         backgroundColor: '#f0c040',
                         borderRadius: 4,
                         borderSkipped: 'bottom',
+                    },
+                    {
+                        label: 'Free Credits',
+                        data: [20, 22, 2, 0, 0],
+                        backgroundColor: '#52b788',
+                        borderRadius: 4,
+                        borderSkipped: 'bottom',
                     }
                 ]
             },
@@ -249,8 +256,8 @@
                         callbacks: {
                             label: ctx => ` ${ctx.dataset.label}: $${ctx.parsed.y}`,
                             footer: items => {
-                                const total = items.reduce((s, i) => s + i.parsed.y, 0);
-                                return `Total: $${total}`;
+                                const paid = items.filter(i => i.dataset.label !== 'Free Credits').reduce((s, i) => s + i.parsed.y, 0);
+                                return paid > 0 ? `Paid Total: $${paid}` : '';
                             }
                         }
                     }
