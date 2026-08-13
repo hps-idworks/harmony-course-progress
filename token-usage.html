@@ -10,8 +10,6 @@
     <style>
         * { box-sizing: border-box; }
         body { font-family: sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
-
-        /* ── Navigation ── */
         nav {
             background-color: #1a3a5c;
             padding: 0 20px;
@@ -19,7 +17,7 @@
             align-items: center;
             gap: 4px;
         }
-        nav a, nav span.nav-disabled {
+        nav a {
             display: inline-block;
             padding: 14px 18px;
             font-size: 13px;
@@ -29,40 +27,32 @@
             border-bottom: 3px solid transparent;
             transition: color 0.15s, border-color 0.15s;
         }
-        nav a:hover {
-            color: #ffffff;
-            border-bottom-color: #5b9bd5;
-        }
-        nav a.active {
-            color: #ffffff;
-            border-bottom-color: #f0c040;
-        }
-        nav span.nav-disabled {
-            color: #5a748a;
-            cursor: default;
-        }
-
-        /* ── Page content ── */
+        nav a:hover { color: #ffffff; border-bottom-color: #5b9bd5; }
+        nav a.active { color: #ffffff; border-bottom-color: #f0c040; }
         .page-content { padding: 24px 20px; }
-        h1 { color: #333; margin-bottom: 8px; margin-top: 0; }
-        .placeholder {
-            margin-top: 40px;
-            color: #aaa;
-            font-size: 15px;
-            font-style: italic;
-        }
+        .page-title { color: #333; margin-bottom: 4px; margin-top: 0; font-size: 24px; }
+        .page-subtitle { color: #666; margin-top: 0; margin-bottom: 24px; font-size: 15px; font-weight: 400; }
+        .dashboard { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; }
+        .course-col { min-width: 250px; background: white; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); flex-shrink: 0; }
+        .course-header { background: #fdf2a4; color: #a67c00; padding: 15px; font-weight: bold; text-align: center; border-bottom: 1px solid #ddd; font-size: 15px; min-height: 45px; display: flex; align-items: center; justify-content: center; line-height: 1.2; }
+        .item-grid { display: grid; grid-template-columns: 1fr 1fr; }
+        .item { padding: 10px; border-bottom: 1px solid #eee; text-align: center; font-size: 14px; }
+        .item:nth-child(even) { border-left: 1px solid #eee; }
+        .completed { background-color: #d7f4d9; color: #2e7d32; font-weight: 500; }
+
+        .placeholder { margin-top: 40px; color: #aaa; font-size: 15px; font-style: italic; }
     </style>
 </head>
 <body>
 
     <nav>
         <a href="index.html">A Course Modules</a>
-        <span class="nav-disabled">B Course Modules</span>
+        <a href="b-courses.html">B Course Modules</a>
         <a href="token-usage.html" class="active">Token Usage</a>
     </nav>
 
     <div class="page-content">
-        <h1>Token Usage</h1>
+        <h1 class="page-title">Token Usage</h1>
         <p class="placeholder">Content coming soon.</p>
     </div>
 
