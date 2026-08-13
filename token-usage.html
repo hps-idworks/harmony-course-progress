@@ -7,9 +7,11 @@
     <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Token Usage — Harmony Course Development</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         * { box-sizing: border-box; }
         body { font-family: sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
+
         nav {
             background-color: #1a3a5c;
             padding: 0 20px;
@@ -29,18 +31,101 @@
         }
         nav a:hover { color: #ffffff; border-bottom-color: #5b9bd5; }
         nav a.active { color: #ffffff; border-bottom-color: #f0c040; }
-        .page-content { padding: 24px 20px; }
-        .page-title { color: #333; margin-bottom: 4px; margin-top: 0; font-size: 24px; }
-        .page-subtitle { color: #666; margin-top: 0; margin-bottom: 24px; font-size: 15px; font-weight: 400; }
-        .dashboard { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; }
-        .course-col { min-width: 250px; background: white; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); flex-shrink: 0; }
-        .course-header { background: #fdf2a4; color: #a67c00; padding: 15px; font-weight: bold; text-align: center; border-bottom: 1px solid #ddd; font-size: 15px; min-height: 45px; display: flex; align-items: center; justify-content: center; line-height: 1.2; }
-        .item-grid { display: grid; grid-template-columns: 1fr 1fr; }
-        .item { padding: 10px; border-bottom: 1px solid #eee; text-align: center; font-size: 14px; }
-        .item:nth-child(even) { border-left: 1px solid #eee; }
-        .completed { background-color: #d7f4d9; color: #2e7d32; font-weight: 500; }
 
-        .placeholder { margin-top: 40px; color: #aaa; font-size: 15px; font-style: italic; }
+        .page-content { padding: 28px 24px; max-width: 900px; }
+        .page-title { color: #333; margin-bottom: 4px; margin-top: 0; font-size: 24px; }
+        .page-subtitle { color: #666; margin-top: 0; margin-bottom: 28px; font-size: 15px; font-weight: 400; }
+
+        .chart-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+        .chart-card h2 {
+            margin: 0 0 6px 0;
+            font-size: 16px;
+            color: #1a3a5c;
+        }
+        .chart-desc {
+            font-size: 13px;
+            color: #888;
+            margin: 0 0 20px 0;
+        }
+        .chart-wrap {
+            position: relative;
+            height: 320px;
+        }
+
+        .summary-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            overflow: hidden;
+            margin-bottom: 28px;
+        }
+        .summary-card h2 {
+            margin: 0;
+            font-size: 15px;
+            color: #1a3a5c;
+            padding: 14px 20px;
+            border-bottom: 1px solid #eee;
+            background: #f5f8fc;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        th {
+            background: #f5f8fc;
+            color: #555;
+            font-weight: 600;
+            text-align: left;
+            padding: 10px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        td {
+            padding: 10px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            color: #333;
+        }
+        tr:last-child td { border-bottom: none; }
+        tr.total-row td {
+            font-weight: 700;
+            background: #f5f8fc;
+            color: #1a3a5c;
+            border-top: 2px solid #dce8f5;
+        }
+        .tag-sub {
+            display: inline-block;
+            background: #dbeeff;
+            color: #1a5c9c;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 7px;
+            border-radius: 3px;
+        }
+        .tag-topup {
+            display: inline-block;
+            background: #fdf2c4;
+            color: #7a5800;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 7px;
+            border-radius: 3px;
+        }
+        .note {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 16px;
+        }
     </style>
 </head>
 <body>
@@ -53,8 +138,140 @@
 
     <div class="page-content">
         <h1 class="page-title">Token Usage</h1>
-        <p class="placeholder">Content coming soon.</p>
+        <h2 class="page-subtitle">Emergent AI - Monthly Spend Tracker</h2>
+
+        <div class="chart-card">
+            <h2>Monthly Spend Overview</h2>
+            <p class="chart-desc">Base subscription ($20/mo) + credit top-ups by month</p>
+            <div class="chart-wrap">
+                <canvas id="spendChart"></canvas>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <h2>Spend Breakdown</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Subscription</th>
+                        <th>Top-Up Credits</th>
+                        <th>Monthly Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Apr 2026</td>
+                        <td><span class="tag-sub">$20</span></td>
+                        <td>&under;</td>
+                        <td>$20</td>
+                    </tr>
+                    <tr>
+                        <td>May 2026</td>
+                        <td><span class="tag-sub">$20</span></td>
+                        <td>
+                            <span class="tag-topup">$20</span>&nbsp;May 14&nbsp;&nbsp;
+                            <span class="tag-topup">$20</span>&nbsp;May 22&nbsp;&nbsp;
+                            <span class="tag-topup">$100</span>&nbsp;May 26
+                        </td>
+                        <td>$160</td>
+                    </tr>
+                    <tr>
+                        <td>Jun 2026</td>
+                        <td><span class="tag-sub">$20</span></td>
+                        <td>&under;</td>
+                        <td>$20</td>
+                    </tr>
+                    <tr>
+                        <td>Jul 2026</td>
+                        <td><span class="tag-sub">$20</span></td>
+                        <td>&under;</td>
+                        <td>$20</td>
+                    </tr>
+                    <tr>
+                        <td>Aug 2026</td>
+                        <td><span class="tag-sub">$20</span> *</td>
+                        <td><span class="tag-topup">$50</span>&nbsp;Aug 11</td>
+                        <td>$70</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>Total</td>
+                        <td>$100</td>
+                        <td>$190</td>
+                        <td>$290</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="note">* August subscription pre-populated; billing date Aug 24, 2026. Apr 2026 actual charge was $1 (95% promo); normalized to $20 for consistency.</p>
     </div>
+
+    <script>
+        const ctx = document.getElementById('spendChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Apr 2026', 'May 2026', 'Jun 2026', 'Jul 2026', 'Aug 2026'],
+                datasets: [
+                    {
+                        label: 'Base Subscription',
+                        data: [20, 20, 20, 20, 20],
+                        backgroundColor: '#3a7fc1',
+                        borderRadius: 0,
+                        borderSkipped: 'bottom',
+                    },
+                    {
+                        label: 'Credit Top-Up',
+                        data: [0, 140, 0, 0, 50],
+                        backgroundColor: '#f0c040',
+                        borderRadius: 4,
+                        borderSkipped: 'bottom',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: { size: 13 },
+                            padding: 16,
+                            usePointStyle: true,
+                            pointStyleWidth: 12
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => ` ${ctx.dataset.label}: $${ctx.parsed.y}`,
+                            footer: items => {
+                                const total = items.reduce((s, i) => s + i.parsed.y, 0);
+                                return `Total: $${total}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                        grid: { display: false },
+                        ticks: { font: { size: 13 } }
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        ticks: {
+                            callback: val => `$${val}`,
+                            font: { size: 12 }
+                        },
+                        grid: { color: '#eeeeee' }
+                    }
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>
