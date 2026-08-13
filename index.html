@@ -1,161 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <!-- No Cache -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harmony Course Development Progress — Fall Courses</title>
+    <title>HPS ID Dashboard</title>
     <style>
-        * { box-sizing: border-box; }
-        body { font-family: sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
-        nav {
-            background-color: #1a3a5c;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f6f8; }
+        .banner img { width: 100%; max-height: 200px; object-fit: cover; display: block; }
+        .header-bar {
+            background: #1a3a5c;
+            color: #fff;
+            text-align: center;
+            padding: 18px 24px;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
         }
-        nav a {
-            display: inline-block;
-            padding: 14px 18px;
-            font-size: 13px;
-            font-weight: 600;
+        .container { max-width: 960px; margin: 40px auto; padding: 0 24px; }
+        .cards { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+            flex: 1 1 260px;
+            max-width: 300px;
+            overflow: hidden;
             text-decoration: none;
-            color: #c8d8e8;
-            border-bottom: 3px solid transparent;
-            transition: color 0.15s, border-color 0.15s;
+            color: inherit;
+            transition: transform 0.15s, box-shadow 0.15s;
         }
-        nav a:hover { color: #ffffff; border-bottom-color: #5b9bd5; }
-        nav a.active { color: #ffffff; border-bottom-color: #f0c040; }
-        .page-content { padding: 24px 20px; }
-        .page-title { color: #333; margin-bottom: 4px; margin-top: 0; font-size: 24px; }
-        .page-subtitle { color: #666; margin-top: 0; margin-bottom: 24px; font-size: 15px; font-weight: 400; }
-        .dashboard { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; }
-        .course-col { min-width: 250px; background: white; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); flex-shrink: 0; }
-        .course-header { background: #fdf2a4; color: #a67c00; padding: 15px; font-weight: bold; text-align: center; border-bottom: 1px solid #ddd; font-size: 15px; min-height: 45px; display: flex; align-items: center; justify-content: center; line-height: 1.2; }
-        .item-grid { display: grid; grid-template-columns: 1fr 1fr; }
-        .item { padding: 10px; border-bottom: 1px solid #eee; text-align: center; font-size: 14px; }
-        .item:nth-child(even) { border-left: 1px solid #eee; }
-        .completed { background-color: #d7f4d9; color: #2e7d32; font-weight: 500; }
-
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.13);
+        }
+        .card-top { height: 6px; }
+        .card-body { padding: 24px 22px 28px; }
+        .card-icon { font-size: 28px; margin-bottom: 12px; }
+        .card-title { font-size: 17px; font-weight: 700; color: #1a3a5c; margin-bottom: 8px; }
+        .card-desc { font-size: 13px; color: #666; line-height: 1.5; }
+        footer {
+            text-align: center;
+            padding: 32px 24px 24px;
+            font-size: 12px;
+            color: #999;
+        }
     </style>
 </head>
 <body>
-
-    <nav>
-        <a href="index.html" class="active">A Course Modules</a>
-        <a href="b-courses.html">B Course Modules</a>
-        <a href="token-usage.html">Token Usage</a>
-    </nav>
-
-    <div class="page-content">
-        <h1 class="page-title">LMS Module Completion Progress</h1>
-        <h2 class="page-subtitle">Fall Courses</h2>
-        <div class="dashboard">
-        <div class="course-col">
-                <div class="course-header">Graphic Design &amp; Illustration I (A)</div>
-                <div class="item-grid">
-                    <div class="item completed">Syllabus</div>
-                    <div class="item completed">Homepage</div>
-                    <div class="item completed">Week 1</div>
-                    <div class="item completed">Week 2</div>
-                    <div class="item completed">Week 3</div>
-                    <div class="item completed">Week 4</div>
-                    <div class="item completed">Week 5</div>
-                    <div class="item completed">Week 6</div>
-                    <div class="item completed">Week 7</div>
-                    <div class="item completed">Week 8</div>
-                    <div class="item completed">Week 9</div>
-                    <div class="item">Week 10</div>
-                    <div class="item">Week 11</div>
-                    <div class="item">Week 12</div>
-                    <div class="item">Week 13</div>
-                    <div class="item">Week 14</div>
-                    <div class="item">Week 15</div>
-                    <div class="item">Week 16</div>
-                    <div class="item">Week 17</div>
-                    <div class="item">Week 18</div>
+    <div class="banner">
+        <img src="assets/hps-banner.jpg" alt="Harmony Public Schools Banner">
+    </div>
+    <div class="header-bar">
+        Harmony Online &mdash; Instructional Design Dashboard
+    </div>
+    <div class="container">
+        <div class="cards">
+            <a class="card" href="a-courses.html">
+                <div class="card-top" style="background:#2196f3;"></div>
+                <div class="card-body">
+                    <div class="card-icon">📘</div>
+                    <div class="card-title">A Course Modules</div>
+                    <div class="card-desc">Fall semester course module tracking</div>
                 </div>
-            </div>
-        <div class="course-col">
-                <div class="course-header">Graphic Design &amp; Illustration II (A)</div>
-                <div class="item-grid">
-                    <div class="item completed">Syllabus</div>
-                    <div class="item completed">Homepage</div>
-                    <div class="item completed">Week 1</div>
-                    <div class="item completed">Week 2</div>
-                    <div class="item completed">Week 3</div>
-                    <div class="item completed">Week 4</div>
-                    <div class="item completed">Week 5</div>
-                    <div class="item">Week 6</div>
-                    <div class="item">Week 7</div>
-                    <div class="item">Week 8</div>
-                    <div class="item">Week 9</div>
-                    <div class="item">Week 10</div>
-                    <div class="item">Week 11</div>
-                    <div class="item">Week 12</div>
-                    <div class="item">Week 13</div>
-                    <div class="item">Week 14</div>
-                    <div class="item">Week 15</div>
-                    <div class="item">Week 16</div>
-                    <div class="item">Week 17</div>
-                    <div class="item">Week 18</div>
+            </a>
+            <a class="card" href="b-courses.html">
+                <div class="card-top" style="background:#4caf50;"></div>
+                <div class="card-body">
+                    <div class="card-icon">📗</div>
+                    <div class="card-title">B Course Modules</div>
+                    <div class="card-desc">Spring semester course module tracking</div>
                 </div>
-            </div>
-        <div class="course-col">
-                <div class="course-header">Digital Media (A)</div>
-                <div class="item-grid">
-                    <div class="item completed">Syllabus</div>
-                    <div class="item completed">Homepage</div>
-                    <div class="item completed">Week 1</div>
-                    <div class="item completed">Week 2</div>
-                    <div class="item completed">Week 3</div>
-                    <div class="item completed">Week 4</div>
-                    <div class="item completed">Week 5</div>
-                    <div class="item">Week 6</div>
-                    <div class="item">Week 7</div>
-                    <div class="item">Week 8</div>
-                    <div class="item">Week 9</div>
-                    <div class="item">Week 10</div>
-                    <div class="item">Week 11</div>
-                    <div class="item">Week 12</div>
-                    <div class="item">Week 13</div>
-                    <div class="item">Week 14</div>
-                    <div class="item">Week 15</div>
-                    <div class="item">Week 16</div>
-                    <div class="item">Week 17</div>
-                    <div class="item">Week 18</div>
+            </a>
+            <a class="card" href="token-usage.html">
+                <div class="card-top" style="background:#ff9800;"></div>
+                <div class="card-body">
+                    <div class="card-icon">📊</div>
+                    <div class="card-title">Token Usage</div>
+                    <div class="card-desc">AI token spend tracker &amp; budget overview</div>
                 </div>
-            </div>
-        <div class="course-col">
-                <div class="course-header">Digital Art &amp; Animation (A)</div>
-                <div class="item-grid">
-                    <div class="item completed">Syllabus</div>
-                    <div class="item completed">Homepage</div>
-                    <div class="item completed">Week 1</div>
-                    <div class="item completed">Week 2</div>
-                    <div class="item completed">Week 3</div>
-                    <div class="item completed">Week 4</div>
-                    <div class="item completed">Week 5</div>
-                    <div class="item">Week 6</div>
-                    <div class="item">Week 7</div>
-                    <div class="item">Week 8</div>
-                    <div class="item">Week 9</div>
-                    <div class="item">Week 10</div>
-                    <div class="item">Week 11</div>
-                    <div class="item">Week 12</div>
-                    <div class="item">Week 13</div>
-                    <div class="item">Week 14</div>
-                    <div class="item">Week 15</div>
-                    <div class="item">Week 16</div>
-                    <div class="item">Week 17</div>
-                    <div class="item">Week 18</div>
-                </div>
-            </div>
+            </a>
         </div>
     </div>
-
+    <footer>Harmony Public Schools &middot; Instructional Design Team &middot; 2026</footer>
 </body>
 </html>
