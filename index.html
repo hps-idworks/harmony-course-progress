@@ -11,81 +11,170 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f6f8; }
+
         .banner img { width: 100%; max-height: 200px; object-fit: cover; display: block; }
+
         .header-bar {
             background: #1a3a5c;
             color: #fff;
             text-align: center;
-            padding: 18px 24px;
-            font-size: 20px;
+            padding: 16px 24px;
+            font-size: 19px;
             font-weight: 700;
             letter-spacing: 0.3px;
         }
-        .container { max-width: 960px; margin: 40px auto; padding: 0 24px; }
-        .cards { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
-        .card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.09);
-            flex: 1 1 260px;
-            max-width: 300px;
+
+        .container { max-width: 820px; margin: 36px auto 24px; padding: 0 24px; }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: #999;
+            margin: 28px 0 10px;
+        }
+        .section-label:first-child { margin-top: 0; }
+
+        .course-row {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 7px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            gap: 16px;
+        }
+
+        .course-name {
+            flex: 0 0 280px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a3a5c;
+        }
+
+        .bar-wrap {
+            flex: 1;
+            background: #f0f0f0;
+            border-radius: 20px;
+            height: 14px;
             overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.4s ease;
+        }
+
+        .bar-a  { background: #e8d234; }
+        .bar-b  { background: #f0a458; }
+
+        .pct-label {
+            flex: 0 0 42px;
+            text-align: right;
+            font-size: 13px;
+            font-weight: 700;
+            color: #555;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 36px 0 16px;
+        }
+
+        .nav-links a {
             text-decoration: none;
-            color: inherit;
-            transition: transform 0.15s, box-shadow 0.15s;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a3a5c;
+            background: #fff;
+            border: 1px solid #dde3ea;
+            border-radius: 6px;
+            padding: 8px 18px;
+            transition: background 0.15s;
         }
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.13);
-        }
-        .card-top { height: 6px; }
-        .card-body { padding: 24px 22px 28px; }
-        .card-icon { font-size: 28px; margin-bottom: 12px; }
-        .card-title { font-size: 17px; font-weight: 700; color: #1a3a5c; margin-bottom: 8px; }
-        .card-desc { font-size: 13px; color: #666; line-height: 1.5; }
+        .nav-links a:hover { background: #eef2f7; }
+
         footer {
             text-align: center;
-            padding: 32px 24px 24px;
-            font-size: 12px;
-            color: #999;
+            padding: 20px 24px 28px;
+            font-size: 11px;
+            color: #bbb;
         }
     </style>
 </head>
 <body>
+
     <div class="banner">
         <img src="assets/hps-banner.jpg" alt="Harmony Public Schools Banner">
     </div>
+
     <div class="header-bar">
         Harmony Online &mdash; Instructional Design Dashboard
     </div>
+
     <div class="container">
-        <div class="cards">
-            <a class="card" href="a-courses.html">
-                <div class="card-top" style="background:#2196f3;"></div>
-                <div class="card-body">
-                    <div class="card-icon">📘</div>
-                    <div class="card-title">A Course Modules</div>
-                    <div class="card-desc">Fall semester course module tracking</div>
-                </div>
-            </a>
-            <a class="card" href="b-courses.html">
-                <div class="card-top" style="background:#4caf50;"></div>
-                <div class="card-body">
-                    <div class="card-icon">📗</div>
-                    <div class="card-title">B Course Modules</div>
-                    <div class="card-desc">Spring semester course module tracking</div>
-                </div>
-            </a>
-            <a class="card" href="token-usage.html">
-                <div class="card-top" style="background:#ff9800;"></div>
-                <div class="card-body">
-                    <div class="card-icon">📊</div>
-                    <div class="card-title">Token Usage</div>
-                    <div class="card-desc">AI token spend tracker &amp; budget overview</div>
-                </div>
-            </a>
+
+        <div class="section-label">Spring Courses (B)</div>
+
+        <div class="course-row">
+            <div class="course-name">Digital Art &amp; Animation (B)</div>
+            <div class="bar-wrap"><div class="bar-fill bar-b" style="width:0%"></div></div>
+            <div class="pct-label">0%</div>
         </div>
+        <div class="course-row">
+            <div class="course-name">Graphic Design &amp; Illustration II (B)</div>
+            <div class="bar-wrap"><div class="bar-fill bar-b" style="width:0%"></div></div>
+            <div class="pct-label">0%</div>
+        </div>
+        <div class="course-row">
+            <div class="course-name">Graphic Design &amp; Illustration I (B)</div>
+            <div class="bar-wrap"><div class="bar-fill bar-b" style="width:0%"></div></div>
+            <div class="pct-label">0%</div>
+        </div>
+        <div class="course-row">
+            <div class="course-name">Digital Media (B)</div>
+            <div class="bar-wrap"><div class="bar-fill bar-b" style="width:0%"></div></div>
+            <div class="pct-label">0%</div>
+        </div>
+
+        <div class="section-label">Fall Courses (A)</div>
+
+        <div class="course-row">
+            <div class="course-name">Digital Art &amp; Animation (A)</div>
+            <div class="bar-wrap"><div class="bar-fill bar-a" style="width:33%"></div></div>
+            <div class="pct-label">33%</div>
+        </div>
+        <div class="course-row">
+            <div class="course-name">Graphic Design &amp; Illustration II (A)</div>
+            <div class="bar-wrap"><div class="bar-fill bar-a" style="width:33%"></div></div>
+            <div class="pct-label">33%</div>
+        </div>
+        <div class="course-row">
+            <div class="course-name">Graphic Design &amp; Illustration I (A)</div>
+            <div class="bar-wrap"><div class="bar-fill bar-a" style="width:52%"></div></div>
+            <div class="pct-label">52%</div>
+        </div>
+        <div class="course-row">
+            <div class="course-name">Digital Media (A)</div>
+            <div class="bar-wrap"><div class="bar-fill bar-a" style="width:33%"></div></div>
+            <div class="pct-label">33%</div>
+        </div>
+
+        <div class="nav-links">
+            <a href="a-courses.html">📘 Fall Courses Detail</a>
+            <a href="b-courses.html">📗 Spring Courses Detail</a>
+            <a href="token-usage.html">📊 Token Usage</a>
+        </div>
+
     </div>
+
     <footer>Harmony Public Schools &middot; Instructional Design Team &middot; 2026</footer>
+
 </body>
 </html>
