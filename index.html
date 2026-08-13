@@ -79,37 +79,41 @@
             color: #555;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 14px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 36px 0 16px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            color: #1a3a5c;
-            background: #fff;
-            border: 1px solid #dde3ea;
-            border-radius: 6px;
-            padding: 8px 18px;
-            transition: background 0.15s;
-        }
-        .nav-links a:hover { background: #eef2f7; }
-
         footer {
             text-align: center;
             padding: 20px 24px 28px;
             font-size: 11px;
             color: #bbb;
         }
+
+        nav {
+            background-color: #1a3a5c;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        nav a {
+            color: #ccd9e8;
+            text-decoration: none;
+            padding: 12px 14px;
+            font-size: 13px;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: color 0.2s, border-bottom-color 0.2s;
+        }
+        nav a:hover { color: #ffffff; border-bottom-color: #5b9bd5; }
+        nav a.active { color: #ffffff; border-bottom-color: #f0c040; }
     </style>
 </head>
 <body>
 
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="a-courses.html">Fall Courses</a>
+        <a href="b-courses.html">Spring Courses</a>
+        <a href="token-usage.html">Token Usage</a>
+    </nav>
     <div class="banner">
         <img src="assets/hps-banner.jpg" alt="Harmony Public Schools Banner">
     </div>
@@ -165,14 +169,7 @@
             <div class="bar-wrap"><div class="bar-fill bar-a" style="width:33%"></div></div>
             <div class="pct-label">33%</div>
         </div>
-
-        <div class="nav-links">
-            <a href="a-courses.html">📘 Fall Courses Detail</a>
-            <a href="b-courses.html">📗 Spring Courses Detail</a>
-            <a href="token-usage.html">📊 Token Usage</a>
-        </div>
-
-    </div>
+</div>
 
     <footer>Harmony Public Schools &middot; Instructional Design Team &middot; 2026</footer>
 
