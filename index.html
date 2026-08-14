@@ -175,5 +175,45 @@
 
     <footer>Harmony Public Schools &middot; Instructional Design Team &middot; 2026</footer>
 
+
+<script>
+async function updateProgress() {
+  const parser = new DOMParser();
+  const pages = ['a-courses.html', 'b-courses.html'];
+
+  for (const page of pages) {
+    try {
+      const resp = await fetch(page + '?_=' + Date.now());
+      const html = await resp.text();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      doc.querySelectorAll('.course-col').forEach(col => {
+        const header = col.querySelector('.course-header');
+        if (!header) return;
+        const name = header.textContent.trim();
+        const total = col.querySelectorAll('.item').length;
+        const done  = col.querySelectorAll('.item.completed').length;
+        if (total === 0) return;
+        const pct = Math.round((done / total) * 100);
+
+        document.querySelectorAll('.course-row').forEach(row => {
+          const label = row.querySelector('.course-name');
+          if (label && label.textContent.trim() === name) {
+            const fill     = row.querySelector('.bar-fill');
+            const pctLabel = row.querySelector('.pct-label');
+            if (fill)     fill.style.width    = pct + '%';
+            if (pctLabel) pctLabel.textContent = pct + '%';
+          }
+        });
+      });
+    } catch (e) {
+      console.warn('Progress fetch failed for', page, e);
+    }
+  }
+}
+
+updateProgress();
+</script>
+
 </body>
 </html>
