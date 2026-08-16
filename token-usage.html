@@ -237,6 +237,13 @@
                         backgroundColor: '#52b788',
                         borderRadius: 4,
                         borderSkipped: 'bottom',
+                    },
+                    {
+                        label: 'Estimated Platform Cost',
+                        data: [21.32, 21.32, 21.32, 0, 0],
+                        backgroundColor: '#aaaaaa',
+                        borderRadius: 4,
+                        borderSkipped: 'bottom',
                     }
                 ]
             },
@@ -250,7 +257,8 @@
                             font: { size: 13 },
                             padding: 16,
                             usePointStyle: true,
-                            pointStyleWidth: 12
+                            pointStyleWidth: 12,
+                            filter: (legendItem) => legendItem.text !== 'Estimated Platform Cost'
                         }
                     },
                     tooltip: {
