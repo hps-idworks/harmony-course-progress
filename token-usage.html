@@ -193,16 +193,24 @@
                     <tr>
                         <td>Aug 2026</td>
                         <td><span class="tag-sub">$20</span></td>
-                        <td><span class="tag-topup">$50</span>&nbsp;Aug 11&nbsp;&nbsp;
+                        <td>
+                            <span class="tag-topup">$50</span>&nbsp;Aug 11&nbsp;&nbsp;
                             <span class="tag-topup">$100</span>&nbsp;Aug 13&nbsp;&nbsp;
-                <span class="tag-topup">$100</span>&nbsp;Aug 24</td>
+                            <span class="tag-topup">$100</span>&nbsp;Aug 24
+                        </td>
                         <td>$270</td>
+                    </tr>
+                    <tr>
+                        <td>Sep 2026</td>
+                        <td><span class="tag-sub">$20</span></td>
+                        <td><span class="tag-topup">$100</span>&nbsp;Sep 1</td>
+                        <td>$120</td>
                     </tr>
                     <tr class="total-row">
                         <td>Total</td>
-                        <td>$100</td>
-                        <td>$390</td>
+                        <td>$120</td>
                         <td>$490</td>
+                        <td>$610</td>
                     </tr>
                 </tbody>
             </table>
@@ -216,32 +224,32 @@
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Apr 2026', 'May 2026', 'Jun 2026', 'Jul 2026', 'Aug 2026'],
+                labels: ['Apr 2026', 'May 2026', 'Jun 2026', 'Jul 2026', 'Aug 2026', 'Sep 2026'],
                 datasets: [
                     {
                         label: 'Base Subscription',
-                        data: [20, 20, 20, 20, 20],
+                        data: [20, 20, 20, 20, 20, 20],
                         backgroundColor: '#3a7fc1',
                         borderRadius: 0,
                         borderSkipped: 'bottom',
                     },
                     {
                         label: 'Credit Top-Up',
-                        data: [0, 140, 0, 0, 250],
+                        data: [0, 140, 0, 0, 250, 100],
                         backgroundColor: '#f0c040',
                         borderRadius: 4,
                         borderSkipped: 'bottom',
                     },
                     {
                         label: 'Free Credits',
-                        data: [20, 22, 2, 2, 0],
+                        data: [20, 22, 2, 2, 0, 0],
                         backgroundColor: '#52b788',
                         borderRadius: 4,
                         borderSkipped: 'bottom',
                     },
                     {
                         label: 'Estimated Platform Cost',
-                        data: [21.32, 21.32, 21.32, 0, 0],
+                        data: [21.32, 21.32, 21.32, 0, 0, 0],
                         backgroundColor: '#aaaaaa',
                         borderRadius: 4,
                         borderSkipped: 'bottom',
