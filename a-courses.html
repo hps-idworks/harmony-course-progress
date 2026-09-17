@@ -7,293 +7,164 @@
 <meta content="no-cache" http-equiv="Pragma"/>
 <meta content="0" http-equiv="Expires"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Harmony Online Course Progress</title>
+<title>Harmony Course Development Progress &#8212; A Courses</title>
 <style>
-    :root {
-      --harmony-blue: #003865;
-      --harmony-gold: #F5A623;
-      --harmony-light: #E8F0F8;
-      --complete: #2E7D32;
-      --in-progress: #F57C00;
-      --not-started: #9E9E9E;
-    }
+        * { box-sizing: border-box; }
+        body { font-family: sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
+        nav {
+            background-color: #1a3a5c;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        nav a {
+            display: inline-block;
+            padding: 14px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #c8d8e8;
+            border-bottom: 3px solid transparent;
+            transition: color 0.15s, border-color 0.15s;
+        }
+        nav a:hover { color: #ffffff; border-bottom-color: #5b9bd5; }
+        nav a.active { color: #ffffff; border-bottom-color: #f0c040; }
+        .page-content { padding: 24px 20px; max-width: 1200px; margin: 0 auto; }
+        .page-title { color: #333; margin-bottom: 4px; margin-top: 0; font-size: 24px; }
+        .page-subtitle { color: #666; margin-top: 0; margin-bottom: 24px; font-size: 19px; font-weight: 500; }
+        .dashboard { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; }
+        .course-col { min-width: 250px; background: white; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); flex-shrink: 0; }
+        .course-header { background: #fdf2a4; color: #a67c00; padding: 15px; font-weight: bold; text-align: center; border-bottom: 1px solid #ddd; font-size: 15px; min-height: 45px; display: flex; align-items: center; justify-content: center; line-height: 1.2; }
+        .item-grid { display: grid; grid-template-columns: 1fr 1fr; }
+        .item { padding: 10px; border-bottom: 1px solid #eee; text-align: center; font-size: 14px; }
+        .item:nth-child(even) { border-left: 1px solid #eee; }
+        .completed { background-color: #d7f4d9; color: #2e7d32; font-weight: 500; }
+        .in-progress { background-color: #fff3cd; color: #7a4f00; font-weight: 500; }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f0f4f8;
-      color: #1a1a2e;
-    }
-
-    header {
-      background: var(--harmony-blue);
-      color: white;
-      padding: 20px 30px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    header img { height: 48px; }
-
-    header div h1 { font-size: 1.4rem; font-weight: 700; }
-    header div p  { font-size: 0.85rem; opacity: 0.85; margin-top: 2px; }
-
-    .last-updated {
-      background: var(--harmony-gold);
-      color: #1a1a2e;
-      text-align: center;
-      padding: 6px;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-
-    .container { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
-
-    .section-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--harmony-blue);
-      border-bottom: 3px solid var(--harmony-gold);
-      padding-bottom: 6px;
-      margin: 28px 0 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .course-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 16px;
-    }
-
-    .course-card {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card-header {
-      background: var(--harmony-blue);
-      color: white;
-      padding: 12px 16px;
-    }
-
-    .card-header .course-code { font-size: 0.72rem; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.08em; }
-    .card-header .course-name { font-size: 0.98rem; font-weight: 700; margin-top: 2px; }
-
-    .card-body { padding: 14px 16px; flex: 1; }
-
-    .progress-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.78rem;
-      color: #555;
-      margin-bottom: 5px;
-    }
-
-    .progress-bar-bg {
-      background: #e0e0e0;
-      border-radius: 6px;
-      height: 10px;
-      overflow: hidden;
-      margin-bottom: 12px;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      border-radius: 6px;
-      transition: width 0.4s ease;
-    }
-
-    .weeks-grid {
-      display: grid;
-      grid-template-columns: repeat(9, 1fr);
-      gap: 4px;
-      margin-top: 4px;
-    }
-
-    .week-cell {
-      aspect-ratio: 1;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.65rem;
-      font-weight: 700;
-      color: white;
-      cursor: default;
-    }
-
-    .week-cell.complete     { background: var(--complete); }
-    .week-cell.in-progress  { background: var(--in-progress); }
-    .week-cell.not-started  { background: var(--not-started); }
-
-    .legend {
-      display: flex;
-      gap: 14px;
-      justify-content: flex-end;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 0.75rem;
-      color: #444;
-    }
-
-    .legend-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-    }
-  </style>
+        .legend { display: flex; gap: 20px; align-items: center; padding: 10px 20px 14px; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #444; }
+        .legend-swatch { width: 18px; height: 18px; border-radius: 4px; border: 1px solid #ddd; background: #fff; display: inline-block; }
+        .legend-swatch.completed { background: #d7f4d9; border-color: #b2dfb4; }
+        .legend-swatch.in-progress { background: #fff3cd; border-color: #ffe082; }
+    </style>
 </head>
 <body>
-
-<header>
-  <div>
-    <h1>Harmony Online — Course Build Progress</h1>
-    <p>CTE Visual Arts &amp; Technology | Instructional Design Team</p>
-  </div>
-</header>
-
-<div class="last-updated">Last Updated: September 17, 2026 &nbsp;|&nbsp; Agent Duo &amp; Instructional Design Team</div>
-
-<div class="container">
-
-  <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:var(--complete)"></div> Complete</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--in-progress)"></div> In Progress</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--not-started)"></div> Not Started</div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════ -->
-  <!--  A-SEMESTER COURSES                             -->
-  <!-- ═══════════════════════════════════════════════ -->
-  <div class="section-title">A-Semester Courses</div>
-  <div class="course-grid">
-
-    <!-- GD-I (A) -->
-    <div class="course-card">
-      <div class="card-header">
-        <div class="course-code">CTE-GD201 — Course 111</div>
-        <div class="course-name">Graphic Design &amp; Illustration I (A)</div>
-      </div>
-      <div class="card-body">
-        <div class="progress-label">
-          <span>Build Progress</span>
-          <span>11 / 18 weeks</span>
-        </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" style="width:61%;background:var(--in-progress)"></div>
-        </div>
-        <div class="weeks-grid">
-          <div class="week-cell complete" title="Week 1">W1</div>
-          <div class="week-cell complete" title="Week 2">W2</div>
-          <div class="week-cell complete" title="Week 3">W3</div>
-          <div class="week-cell complete" title="Week 4">W4</div>
-          <div class="week-cell complete" title="Week 5">W5</div>
-          <div class="week-cell complete" title="Week 6">W6</div>
-          <div class="week-cell complete" title="Week 7">W7</div>
-          <div class="week-cell complete" title="Week 8">W8</div>
-          <div class="week-cell complete" title="Week 9">W9</div>
-          <div class="week-cell complete" title="Week 10">W10</div>
-          <div class="week-cell complete" title="Week 11">W11</div>
-          <div class="week-cell not-started" title="Week 12">W12</div>
-          <div class="week-cell not-started" title="Week 13">W13</div>
-          <div class="week-cell not-started" title="Week 14">W14</div>
-          <div class="week-cell not-started" title="Week 15">W15</div>
-          <div class="week-cell not-started" title="Week 16">W16</div>
-          <div class="week-cell not-started" title="Week 17">W17</div>
-          <div class="week-cell not-started" title="Week 18">W18</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Digital Media (A) -->
-    <div class="course-card">
-      <div class="card-header">
-        <div class="course-code">CTE-DM101 — Course 213</div>
-        <div class="course-name">Digital Media (A)</div>
-      </div>
-      <div class="card-body">
-        <div class="progress-label">
-          <span>Build Progress</span>
-          <span>18 / 18 weeks</span>
-        </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" style="width:100%;background:var(--complete)"></div>
-        </div>
-        <div class="weeks-grid">
-          <div class="week-cell complete" title="Week 1">W1</div>
-          <div class="week-cell complete" title="Week 2">W2</div>
-          <div class="week-cell complete" title="Week 3">W3</div>
-          <div class="week-cell complete" title="Week 4">W4</div>
-          <div class="week-cell complete" title="Week 5">W5</div>
-          <div class="week-cell complete" title="Week 6">W6</div>
-          <div class="week-cell complete" title="Week 7">W7</div>
-          <div class="week-cell complete" title="Week 8">W8</div>
-          <div class="week-cell complete" title="Week 9">W9</div>
-          <div class="week-cell complete" title="Week 10">W10</div>
-          <div class="week-cell complete" title="Week 11">W11</div>
-          <div class="week-cell complete" title="Week 12">W12</div>
-          <div class="week-cell complete" title="Week 13">W13</div>
-          <div class="week-cell complete" title="Week 14">W14</div>
-          <div class="week-cell complete" title="Week 15">W15</div>
-          <div class="week-cell complete" title="Week 16">W16</div>
-          <div class="week-cell complete" title="Week 17">W17</div>
-          <div class="week-cell complete" title="Week 18">W18</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Digital Art & Animation (A) -->
-    <div class="course-card">
-      <div class="card-header">
-        <div class="course-code">CTE-DA101 — Course 214</div>
-        <div class="course-name">Digital Art &amp; Animation (A)</div>
-      </div>
-      <div class="card-body">
-        <div class="progress-label">
-          <span>Build Progress</span>
-          <span>18 / 18 weeks</span>
-        </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" style="width:100%;background:var(--complete)"></div>
-        </div>
-        <div class="weeks-grid">
-          <div class="week-cell complete" title="Week 1">W1</div>
-          <div class="week-cell complete" title="Week 2">W2</div>
-          <div class="week-cell complete" title="Week 3">W3</div>
-          <div class="week-cell complete" title="Week 4">W4</div>
-          <div class="week-cell complete" title="Week 5">W5</div>
-          <div class="week-cell complete" title="Week 6">W6</div>
-          <div class="week-cell complete" title="Week 7">W7</div>
-          <div class="week-cell complete" title="Week 8">W8</div>
-          <div class="week-cell complete" title="Week 9">W9</div>
-          <div class="week-cell complete" title="Week 10">W10</div>
-          <div class="week-cell complete" title="Week 11">W11</div>
-          <div class="week-cell complete" title="Week 12">W12</div>
-          <div class="week-cell complete" title="Week 13">W13</div>
-          <div class="week-cell complete" title="Week 14">W14</div>
-          <div class="week-cell complete" title="Week 15">W15</div>
-          <div class="week-cell complete" title="Week 16">W16</div>
-          <div class="week-cell complete" title="Week 17">W17</div>
-          <div class="week-cell complete" title="Week 18">W18</div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /.course-grid -->
-</div><!-- /.container -->
-
-</body>
-</html>
+<nav>
+<a href="index.html">Home</a>
+<a class="active" href="a-courses.html">A Course Modules</a>
+<a href="b-courses.html">B Course Modules</a>
+<a href="token-usage.html">Token Usage</a>
+</nav>
+<div class="page-content">
+<div class="legend">
+<span class="legend-item"><span class="legend-swatch completed"></span> Completed</span>
+<span class="legend-item"><span class="legend-swatch in-progress"></span> In Progress</span>
+<span class="legend-item"><span class="legend-swatch"></span> Not Started</span>
+</div>
+<h1 class="page-title">LMS Module Completion Progress</h1>
+<h2 class="page-subtitle">Fall Courses</h2>
+<div class="dashboard">
+<div class="course-col">
+<div class="course-header">Graphic Design &amp; Illustration I (A)</div>
+<div class="item-grid">
+<div class="item completed">Syllabus</div>
+<div class="item completed">Homepage</div>
+<div class="item completed">Week 1</div>
+<div class="item completed">Week 10</div>
+<div class="item completed">Week 2</div>
+<div class="item completed">Week 11</div>
+<div class="item completed">Week 3</div>
+<div class="item">Week 12</div>
+<div class="item completed">Week 4</div>
+<div class="item">Week 13</div>
+<div class="item completed">Week 5</div>
+<div class="item">Week 14</div>
+<div class="item completed">Week 6</div>
+<div class="item">Week 15</div>
+<div class="item completed">Week 7</div>
+<div class="item">Week 16</div>
+<div class="item completed">Week 8</div>
+<div class="item">Week 17</div>
+<div class="item completed">Week 9</div>
+<div class="item">Week 18</div>
+</div>
+</div>
+<div class="course-col">
+<div class="course-header">Graphic Design &amp; Illustration II (A)</div>
+<div class="item-grid">
+<div class="item completed">Syllabus</div>
+<div class="item completed">Homepage</div>
+<div class="item completed">Week 1</div>
+<div class="item">Week 10</div>
+<div class="item completed">Week 2</div>
+<div class="item">Week 11</div>
+<div class="item completed">Week 3</div>
+<div class="item">Week 12</div>
+<div class="item completed">Week 4</div>
+<div class="item">Week 13</div>
+<div class="item completed">Week 5</div>
+<div class="item">Week 14</div>
+<div class="item completed">Week 6</div>
+<div class="item">Week 15</div>
+<div class="item completed">Week 7</div>
+<div class="item">Week 16</div>
+<div class="item completed">Week 8</div>
+<div class="item">Week 17</div>
+<div class="item completed">Week 9</div>
+<div class="item">Week 18</div>
+</div>
+</div>
+<div class="course-col">
+<div class="course-header">Digital Media (A)</div>
+<div class="item-grid">
+<div class="item completed">Syllabus</div>
+<div class="item completed">Homepage</div>
+<div class="item completed">Week 1</div>
+<div class="item completed">Week 10</div>
+<div class="item completed">Week 2</div>
+<div class="item completed">Week 11</div>
+<div class="item completed">Week 3</div>
+<div class="item completed">Week 12</div>
+<div class="item completed">Week 4</div>
+<div class="item completed">Week 13</div>
+<div class="item completed">Week 5</div>
+<div class="item completed">Week 14</div>
+<div class="item completed">Week 6</div>
+<div class="item completed">Week 15</div>
+<div class="item completed">Week 7</div>
+<div class="item completed">Week 16</div>
+<div class="item completed">Week 8</div>
+<div class="item completed">Week 17</div>
+<div class="item completed">Week 9</div>
+<div class="item completed">Week 18</div>
+</div>
+</div>
+<div class="course-col">
+<div class="course-header">Digital Art &amp; Animation (A)</div>
+<div class="item-grid">
+<div class="item completed">Syllabus</div>
+<div class="item completed">Homepage</div>
+<div class="item completed">Week 1</div>
+<div class="item completed">Week 10</div>
+<div class="item completed">Week 2</div>
+<div class="item completed">Week 11</div>
+<div class="item completed">Week 3</div>
+<div class="item completed">Week 12</div>
+<div class="item completed">Week 4</div>
+<div class="item completed">Week 13</div>
+<div class="item completed">Week 5</div>
+<div class="item completed">Week 14</div>
+<div class="item completed">Week 6</div>
+<div class="item completed">Week 15</div>
+<div class="item completed">Week 7</div>
+<div class="item completed">Week 16</div>
+<div class="item completed">Week 8</div>
+<div class="item completed">Week 17</div>
+<div class="item completed">Week 9</div>
+<div class="item completed">Week 18</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>
