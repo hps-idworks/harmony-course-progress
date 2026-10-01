@@ -210,11 +210,17 @@
                             <span class="tag-topup">$100</span>&nbsp;9/23</td>
                         <td>$520</td>
                     </tr>
+                    <tr>
+                        <td>Oct 2026</td>
+                        <td><span class="tag-sub">$20</span></td>
+                        <td><span class="tag-topup">$500</span>&nbsp;10/1</td>
+                        <td>$520</td>
+                    </tr>
                     <tr class="total-row">
                         <td>Total</td>
-                        <td>$120</td>
-                        <td>$890</td>
-                        <td>$1,010</td>
+                        <td>$140</td>
+                        <td>$1,390</td>
+                        <td>$1,530</td>
                     </tr>
                 </tbody>
             </table>
@@ -228,32 +234,32 @@
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Apr 2026', 'May 2026', 'Jun 2026', 'Jul 2026', 'Aug 2026', 'Sep 2026'],
+                labels: ['Apr 2026', 'May 2026', 'Jun 2026', 'Jul 2026', 'Aug 2026', 'Sep 2026', 'Oct 2026'],
                 datasets: [
                     {
                         label: 'Base Subscription',
-                        data: [20, 20, 20, 20, 20, 20],
+                        data: [20, 20, 20, 20, 20, 20, 20],
                         backgroundColor: '#3a7fc1',
                         borderRadius: 0,
                         borderSkipped: 'bottom',
                     },
                     {
                         label: 'Credit Top-Up',
-                        data: [0, 140, 0, 0, 250, 500],
+                        data: [0, 140, 0, 0, 250, 500, 500],
                         backgroundColor: '#f0c040',
                         borderRadius: 4,
                         borderSkipped: 'bottom',
                     },
                     {
                         label: 'Free Credits',
-                        data: [20, 22, 2, 2, 0, 0],
+                        data: [20, 22, 2, 2, 0, 0, 0],
                         backgroundColor: '#52b788',
                         borderRadius: 4,
                         borderSkipped: 'bottom',
                     },
                     {
                         label: 'Estimated Platform Cost',
-                        data: [21.32, 21.32, 21.32, 0, 0, 0],
+                        data: [21.32, 21.32, 21.32, 0, 0, 0, 0],
                         backgroundColor: '#aaaaaa',
                         borderRadius: 4,
                         borderSkipped: 'bottom',
